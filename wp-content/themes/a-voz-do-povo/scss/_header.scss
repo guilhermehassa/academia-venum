@@ -1,0 +1,268 @@
+.header{
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%;
+  background-color: var(--gray);
+
+  h1{
+    margin: 0;
+  }
+
+  &_toggle{
+    position: absolute;
+    right: 0;
+    top: torem(16);
+    height: torem(80);
+    
+    button{
+      border: none;
+      height: torem(80);
+      aspect-ratio: 1 / 1;
+      background-color: var(--gray);
+      border-bottom: torem(2) solid var(--green);
+      transition: 0.3s;
+      svg{
+        path{
+          transition: 0.3s;
+        }
+      }
+    }
+
+    &.active{
+      button{
+        background-color: var(--green);
+
+        svg{
+          path{
+            stroke: var(--gray);
+          }
+        }
+      }
+    }
+  }
+
+  &_first{
+    background-color: var(--black);
+    color: var(--white);
+    height: torem(16);
+
+    font-size: torem(10);
+
+    @include media-breakpoint-up(lg){
+      height: torem(24);
+      align-content: space-around;
+    }
+  }
+
+  &_main{
+    height: torem(80);
+    display: flex;
+    align-items: center;
+    
+    h1{
+      a{
+        img{
+          max-height: torem(80);
+          object-fit: contain;
+          object-position: center left;
+        }
+      }  
+    }
+  }
+
+  &_nav{
+    background-color: var(--green);
+    overflow-y: hidden;
+    height: 0;
+    transition: 0.3s;
+    position: relative;
+
+    @include media-breakpoint-up(lg) {
+      height: auto;
+      overflow: visible;
+    }
+
+    &.active{
+      padding: torem(10) 0;
+      height: calc(100vh - 96px);
+      color: var(--white);
+    }
+
+    // PARA MUDAR A POSIÇÃO DO FORM SEARCH SEM PRECISAR COM POSITION, SEM PRECISAR CRIAR OUTRO HTML PARA
+    .container{
+      @include media-breakpoint-up(lg) {
+        position: relative;
+      }
+    }
+
+    form{
+      display: flex;
+      
+      @include media-breakpoint-up(lg) {
+        position: absolute;
+        right: 0;
+        top: torem(-56);
+        border: 2px solid var(--green);
+      }
+
+      input, input:focus{
+        margin: 0; 
+        height: torem(24);
+        width: 100%;
+        border: none;
+        outline: none;
+        border-radius: 0;
+      }
+
+      button{
+        height: torem(24);
+        aspect-ratio: 1 / 1;
+        background-color: var(--yellow);
+        border: none; outline: none;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    nav{
+      margin-top: torem(6);
+      position: relative;
+
+      &::after, &::before{
+        display: block; content: '';
+        position: absolute;
+        z-index: 1001;
+        left: 0;
+        
+        width: 100%;
+        height: torem(10);
+
+        transition: 0.2s;
+        background: rgb(0,0,0);
+
+        @include media-breakpoint-up(lg){
+          display: none;
+        }
+      }
+
+      &::before{
+        top: 0;
+        opacity: var(--opacity-before, 0);
+        background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 42%, rgba(0,0,0,0) 100%);
+      }
+      &::after{
+        bottom: torem(-5);
+        opacity: var(--opacity-after, 0);
+        background: linear-gradient(-180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 42%, rgba(0,0,0,0) 100%);
+      }
+      
+      ul{
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: torem(6);
+        
+        max-height: 50vh;
+        overflow-y: scroll;
+
+        @include media-breakpoint-up(lg) {
+          flex-direction: row;
+          overflow: visible;
+          justify-content: center;
+          gap: 0;
+        }
+
+        li{
+          border-bottom: 1px solid var(--yellow);
+          padding: torem(6) 0;
+
+          &:last-child{
+            border-bottom: 1px solid transparent;
+          }
+
+          @include media-breakpoint-up(lg){
+            border-bottom: none;
+
+            &:hover{
+              background-color: rgba(255, 255, 255, 0.2);
+            }
+          }
+          a{
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+
+            @include media-breakpoint-up(lg){
+              padding: torem(6) torem(10);
+
+            }
+          }
+
+          &.socials{
+            display: flex;
+            justify-content: center;
+
+            a{
+              aspect-ratio: 1 / 1;
+            }
+          }
+        }
+      }
+    }
+
+    &__more{
+      position: absolute !important;
+      bottom: 0;
+      width: 100%;
+      
+      @include media-breakpoint-up(lg){
+        position: fixed !important;
+        bottom: unset;
+        top: 0;
+        width: fit-content;
+        margin-top: 0 !important;
+        ul{
+          li{
+            padding: 0 !important;
+            border: none !important;
+
+            a{
+              padding: 0 20px !important;
+              display: block;
+              height: torem(24);
+            }
+            &.socials{
+              &:hover{
+                background-color: unset;
+              }
+              a{
+                padding: 0 !important;
+                display: flex;
+                &:hover{
+                  background-color: rgba(255, 255, 255, 0.2);
+                }
+                img{
+                  width: torem(24);
+                }
+
+                &[id*="mailto"]{
+
+                  img{
+                    @include media-breakpoint-up(lg){
+                      filter: invert(1);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

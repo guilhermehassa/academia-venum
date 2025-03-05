@@ -139,9 +139,14 @@ add_action( 'widgets_init', 'a_voz_do_povo_widgets_init' );
  */
 function a_voz_do_povo_scripts() {
 	wp_enqueue_style( 'a-voz-do-povo-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_enqueue_style( 'bootstrap', get_stylesheet_directory_uri().'/css/styles.css', array(), _S_VERSION );
+	wp_enqueue_style( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array() );
+	
 	wp_style_add_data( 'a-voz-do-povo-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'a-voz-do-povo-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'swiper', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -176,3 +181,65 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+function allow_svg_upload($mimes) {
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+add_filter('upload_mimes', 'allow_svg_upload');
+
+function ocultar_menu_posts() {
+	remove_menu_page('edit.php'); // Remove "Posts" do menu
+}
+add_action('admin_menu', 'ocultar_menu_posts');
+
+function inserir_publicidade_no_conteudo($content) {
+	if (is_singular('noticia')) { // Aplica apenas ao CPT 'noticia'
+		$pattern = '/(<p>.*?<\/p>|<h[1-6]>.*?<\/h[1-6]>|<ul>.*?<\/ul>|<ol>.*?<\/ol>)/i'; // Expressão regular para identificar blocos de texto
+		preg_match_all($pattern, $content, $matches); // Separa os blocos de conteúdo
+
+		$total_blocos = count($matches[0]);
+		$new_content = '';  
+
+		// Garante que a cada chamada tenhamos publicidades diferentes
+		$publicidades_exibidas = [];
+
+		foreach ($matches[0] as $index => $block) {
+			$new_content .= $block;  
+
+			if (($index + 1) % 3 == 0) { // Insere a cada 3 blocos
+				$publicidade = gerar_publicidade($publicidades_exibidas);
+				if (!empty($publicidade)) {
+					$new_content .= $publicidade;
+					$publicidades_exibidas[] = $publicidade; // Adiciona ao array para evitar repetição
+				}
+			}
+		}
+
+		// Se não houver blocos suficientes para exibir ao menos uma publicidade, garante uma no final
+		if ($total_blocos < 3) {
+			$publicidade = gerar_publicidade($publicidades_exibidas);
+			if (!empty($publicidade)) {
+				$new_content .= $publicidade;
+			}
+		}
+
+		return $new_content;
+	}
+	return $content;
+}
+add_filter('the_content', 'inserir_publicidade_no_conteudo');
+/**
+ * Função para buscar uma publicidade pequena ou quadrada.
+ */
+function gerar_publicidade() {
+	$theme_path = get_template_directory() . '/publi/'; // Caminho da pasta dentro do tema
+	$options = ['small.php', 'square.php']; // Arquivos disponíveis
+	$file = $theme_path . $options[array_rand($options)]; // Escolhe um aleatório
+
+	if (file_exists($file)) {
+		ob_start();
+		include $file; // Inclui o arquivo correspondente
+		return ob_get_clean();
+	}
+	return ''; // Retorna vazio se o arquivo não existir
+}

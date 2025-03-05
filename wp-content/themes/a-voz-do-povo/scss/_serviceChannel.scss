@@ -1,0 +1,26 @@
+.serviceChannel{
+
+  &-list{
+    border: 1px solid var(--green);
+  
+    padding: torem(12) torem(22);
+    display: flex;
+    flex-direction: column;
+  
+    @include media-breakpoint-up(lg){
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &-item, &-item:visited{
+    color: var(--black);
+    text-decoration: none;
+    img{
+      width: torem(40);
+      aspect-ratio: 1 / 1;
+    }
+
+  }
+}

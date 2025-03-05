@@ -17,43 +17,118 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'a-voz-do-povo' ); ?></a>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$a_voz_do_povo_description = get_bloginfo( 'description', 'display' );
-			if ( $a_voz_do_povo_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $a_voz_do_povo_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
+<header class="header">
+	<div class="header_first">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 text-center text-lg-end">
+					<?php
+						date_default_timezone_set('America/Cuiaba');
+						$dataHoraAtual = date('Y-m-d\TH:i:s');
+							
+					?>
+					Cuiabá, <span id="timeNow"><?= $dataHoraAtual; ?></span> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header_main">
+		<div class="container">
+			<div class="row">
+				<div class="col-6">
+					<h1 title="<?=get_bloginfo('name');?>" class="header_logo">
+						<?php the_custom_logo(); ?>
+					</h1>
+				</div>
+			</div>
+		</div>
+	</div>
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'a-voz-do-povo' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
-	</header><!-- #masthead -->
+	<div class="d-flex justify-content-end header_toggle">
+		<button id="toggle-menu" class="d-lg-none">
+			<?=  file_get_contents(get_template_directory().'/img/toggle_menu.svg')  ?>
+		</button>
+	</div>
+
+	<div class="header_nav">
+		<div class="container">
+			<form action="<?php echo esc_url(home_url('/pesquisa/')); ?>" id="search-form">
+				<input type="text" name="pesquisa" id="search-input" placeholder="Digite sua busca...">
+				<button type="submit">
+					<?= file_get_contents(get_template_directory() . '/img/searchicon.svg') ?>
+				</button>
+			</form>
+			<nav>
+				<ul class="list-unstyled">
+					<?php
+						$terms = get_terms([
+							'taxonomy'   => 'editoria',
+							'hide_empty' => true, // Exibe apenas categorias que possuem posts
+						]);
+					?>
+					<?php if (!empty($terms) && !is_wp_error($terms)) : ?>
+						<?php foreach ($terms as $term) : ?>
+							<li>
+								<a href="<?php echo get_term_link($term); ?>">
+									<?php echo esc_html($term->name); ?>
+								</a>
+							</li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</ul>
+			</nav>
+			<nav class="header_nav__more">
+				<ul class="list-unstyled">
+					<li>
+						<a href="<?php echo esc_url(home_url('/sobre-nos/')); ?>">
+							SOBRE NÓS
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo esc_url(home_url('/fale-conosco/')); ?>">
+							FALE CONOSCO
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo esc_url(home_url('/fale-conosco/')); ?>">
+							ANUNCIE AQUI
+						</a>
+					</li>
+					<li class="socials">
+						<?php
+							$args = [
+								'post_type'      => 'service_channel',
+								'post_status'    => 'publish',
+								'posts_per_page' => -1, 
+							];
+
+							$query = new WP_Query($args);
+						?>
+						<?php if ($query->have_posts()) : ?>
+							<?php while ($query->have_posts()) : ?>
+								<?php
+									$query->the_post();
+									$title = get_the_title();
+									$content = get_field('content');
+								?>
+
+								<a href="<?= $content['link']['url']; ?>" id="<?= $content['link']['url']; ?>" target="_blank">
+									<img src="<?= $content['icon']; ?>" aria-hidden="true">
+								</a>
+								
+							<?php endwhile; ?>
+						<?php endif; wp_reset_postdata(); ?>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>

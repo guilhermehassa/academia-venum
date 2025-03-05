@@ -1,0 +1,38 @@
+.homeHero{
+  &_post{
+    position: relative;
+    height: torem(270) !important;
+
+    @include media-breakpoint-up(lg){
+      height: torem(340);
+
+    }
+
+    img{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__content{
+      position: absolute;
+      bottom: 0;
+
+      span{
+        background-color: var(--green);;
+        color: var(--white);
+        font-size: torem(12);
+        padding: torem(4) torem(6);
+        margin-left: torem(16);
+      }
+      
+      h3{
+        background-color: rgba(255, 255, 255, 0.8);
+        margin: torem(10) 0 0 0;
+        padding: torem(6) torem(16);
+      }
+    }
+  }
+}

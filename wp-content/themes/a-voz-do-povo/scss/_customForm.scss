@@ -1,0 +1,25 @@
+.customForm{
+  form{
+
+    input, textarea, select{
+      margin-bottom: torem(12);
+      border: torem(2) solid var(--black);
+      border-radius: 0;
+      width: 100%;
+      height: torem(32);
+
+      &[type=submit]{
+        width: 100%;
+        background-color: var(--green);
+        color: var(--white);
+        border: none; outline: none;
+        margin: 0;
+      }
+
+    }
+    textarea{
+      height: torem(120);
+      resize: none
+    }
+  }
+}

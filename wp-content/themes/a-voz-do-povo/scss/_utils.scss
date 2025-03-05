@@ -1,0 +1,9 @@
+@function torem($value) {
+  @if type-of($value) == 'number' {
+    @return #{$value / 16}rem;
+  } @else if str-slice($value, -2) == 'px' {
+    @return #{str-to-number($value) / 16}rem;
+  } @else {
+    @return $value; // Retorna o valor original se não for numérico ou em px
+  }
+}

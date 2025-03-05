@@ -1,0 +1,33 @@
+.editorial{
+
+  &_relateds{
+    display: flex;
+    flex-direction: column;
+    gap: torem(8);
+    
+    &__item{
+      display: flex;
+      gap: torem(4);
+      border-left: torem(2) solid var(--yellow);
+      color: var(--black);
+      text-decoration:none;
+      padding-left: torem(4);
+
+      &:visited{
+        color: var(--black);
+        text-decoration: none;
+      }
+
+      span{
+        min-width: torem(12);
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2; /* Limita a 3 linhas */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        align-self:center;
+      }
+    }
+  }
+}

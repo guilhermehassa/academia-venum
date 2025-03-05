@@ -1,0 +1,38 @@
+.lastNews{
+  &_item{
+    
+    &__image{
+      img{
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        object-position: center;
+        border-radius: torem(15);
+        overflow: hidden;
+      }
+    }
+
+    &__content{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h2{
+        font-size: 4vw;
+        font-weight: 400;
+        color: var(--black);
+        line-height: 100%;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limita a 3 linhas */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @include media-breakpoint-up(lg){
+          font-size: torem(16);
+        }
+      }
+
+    }
+  }
+
+}
