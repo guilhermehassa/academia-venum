@@ -93,11 +93,10 @@ $success: #7952b3;
 
 :root{
   --gray: #D9D9D9;
-  --yellow: #e2b436;
-  --green: #017233;
   --black: #1f1f1f;
   --dark: #000000;
   --white: #ffffff;
+  --darkred: #9B1B30;
 }
 
 html{
@@ -119,11 +118,11 @@ html{
 
 h1, h2, h3, h4, h5, h6{
   font-weight: 700;
-  color: var(--green);
+  color: var(--black);
 }
 
 .main_button, .main_button:visited{
-  background-color: var(--yellow);
+  background-color: var(--darkred);
   color: var(--white) !important;
   padding: torem(4) torem(8);
   font-weight: 700;

@@ -11,7 +11,7 @@
       left: torem(10);
       bottom: torem(10);
       
-      background-color: var(--green);
+      background-color: var(--black);
       color: var(--white);
       text-transform: uppercase;
       padding: torem(4) torem(6);
@@ -27,7 +27,7 @@
   &_info{
     font-weight: 700;
     font-size: torem(8);
-    color: var(--green);
+    color: var(--black);
     letter-spacing: 1px;
     text-transform: uppercase;
 
@@ -42,10 +42,10 @@
 
   &_share{
     padding: 0 torem(10);
-    border: 1px solid var(--green);
+    border: 1px solid var(--black);
     display: flex;
 
-    color: var(--green);
+    color: var(--black);
     font-size: torem(8);
     font-weight: 700;
     letter-spacing: 1px;

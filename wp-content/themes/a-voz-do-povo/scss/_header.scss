@@ -20,7 +20,7 @@
       height: torem(80);
       aspect-ratio: 1 / 1;
       background-color: var(--gray);
-      border-bottom: torem(2) solid var(--green);
+      border-bottom: torem(2) solid var(--black);
       transition: 0.3s;
       svg{
         path{
@@ -31,7 +31,7 @@
 
     &.active{
       button{
-        background-color: var(--green);
+        background-color: var(--black);
 
         svg{
           path{
@@ -72,7 +72,7 @@
   }
 
   &_nav{
-    background-color: var(--green);
+    background-color: var(--black);
     overflow-y: hidden;
     height: 0;
     transition: 0.3s;
@@ -103,7 +103,7 @@
         position: absolute;
         right: 0;
         top: torem(-56);
-        border: 2px solid var(--green);
+        border: 2px solid var(--black);
       }
 
       input, input:focus{
@@ -118,7 +118,7 @@
       button{
         height: torem(24);
         aspect-ratio: 1 / 1;
-        background-color: var(--yellow);
+        background-color: var(--darkred);
         border: none; outline: none;
         padding: 0;
 
@@ -178,7 +178,7 @@
         }
 
         li{
-          border-bottom: 1px solid var(--yellow);
+          border-bottom: 1px solid var(--darkred);
           padding: torem(6) 0;
 
           &:last-child{
