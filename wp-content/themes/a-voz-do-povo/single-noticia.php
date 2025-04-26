@@ -51,7 +51,7 @@
             $post_url = get_permalink(); // Obtém a URL da notícia
 
             // Mensagem personalizada antes do título
-            $custom_message = 'Veja no Diário Cuiabano: ' . $post_title;
+            $custom_message = 'Veja no blog da Academia Venum: ' . $post_title;
 
             // Links de compartilhamento
             $whatsapp_link = 'https://api.whatsapp.com/send?text=' . urlencode($custom_message . ' ' . $post_url);

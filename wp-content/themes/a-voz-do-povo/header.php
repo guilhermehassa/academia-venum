@@ -31,11 +31,11 @@
 			<div class="row">
 				<div class="col-12 text-center text-lg-end">
 					<?php
-						date_default_timezone_set('America/Cuiaba');
+						date_default_timezone_set('America/Sao_Paulo');
 						$dataHoraAtual = date('Y-m-d\TH:i:s');
 							
 					?>
-					Cuiabá, <span id="timeNow"><?= $dataHoraAtual; ?></span> 
+					<span id="timeNow"><?= $dataHoraAtual; ?></span> 
 				</div>
 			</div>
 		</div>

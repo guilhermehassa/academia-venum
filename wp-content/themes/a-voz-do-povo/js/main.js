@@ -12,7 +12,7 @@ function atualizarDataHora() {
 
   // Formata a data em português
   const opcoes = {
-      timeZone: "America/Cuiaba",
+      timeZone: "America/Sao_Paulo",
       weekday: 'long',
       year: 'numeric',
       month: 'long',
